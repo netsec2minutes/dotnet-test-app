@@ -16,16 +16,7 @@ jobs:
           name: Horusec Security Test
           command: |
             curl -fsSL https://horusec.io/bin/install.sh | bash
-            horusec start -p="./" -e="true"
-      - run:    
-          command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
-          when: always
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports          
+            horusec start -p="./" -e="true" -o="json" -O="./output.json"
 
   test:
     description: Setup and run application tests
