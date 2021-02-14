@@ -8,6 +8,7 @@ executors:
       image: ubuntu-1604:202004-01
 
 jobs:
+  working_directory: /tmp
   horusec:
     executor: horusec-executor
     steps:
@@ -16,10 +17,11 @@ jobs:
           name: Horusec Security Test
           command: |
             curl -fsSL https://horusec.io/bin/install.sh | bash
-            horusec start -p="./" -e="true"
-            exit 0
-      - store_artifacts:
-          path: C:\Users\circleci\project\test_coverage
+            horusec start -p="./" -e="true" 
+        
+            - store_artifacts:
+              path: /tmp/artifact-1
+              destination: artifact-fil
   test:
     description: Setup and run application tests
     executor:
@@ -64,4 +66,5 @@ workflows:
       - build:
           requires:
             - test
+            - horusec
 
