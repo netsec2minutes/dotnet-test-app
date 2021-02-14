@@ -2,8 +2,23 @@ version: 2.1
 
 orbs:
   windows: circleci/windows@2.2.0
+executors:
+  horusec-executor:
+    machine:
+      image: ubuntu-1604:202004-01
 
 jobs:
+  horusec:
+    executor: horusec-executor
+    steps:
+      - checkout
+      - run:
+          name: Horusec Security Test
+          command: |
+            curl -fsSL https://horusec.io/bin/install.sh | bash
+            horusec start -p="./" -e="true"
+      - store_artifacts:
+          path: C:\Users\circleci\project\test_coverage
   test:
     description: Setup and run application tests
     executor:
@@ -37,9 +52,13 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
+
+
+
 workflows:
   test_and_build:
     jobs:
+      - horusec
       - test
       - build:
           requires:
