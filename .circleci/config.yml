@@ -17,6 +17,7 @@ jobs:
           command: |
             curl -fsSL https://horusec.io/bin/install.sh | bash
             horusec start -p="./" -e="true"
+            exit 0
       - store_artifacts:
           path: C:\Users\circleci\project\test_coverage
   test:
