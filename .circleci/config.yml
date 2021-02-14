@@ -17,10 +17,10 @@ jobs:
           name: Horusec Security Test
           command: |
             curl -fsSL https://horusec.io/bin/install.sh | bash
-            horusec start -p="./" -e="true" 
-      - store_artifacts:
-          path: /tmp/artifact-1
-          destination: artifact-fil 
+            horusec start -p="./" -e="true"
+      - store_test_results:
+          path: integration-tests/test-results
+  
   test:
     description: Setup and run application tests
     executor:
