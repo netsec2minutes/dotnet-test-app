@@ -18,10 +18,9 @@ jobs:
           command: |
             curl -fsSL https://horusec.io/bin/install.sh | bash
             horusec start -p="./" -e="true" 
-        
-            - store_artifacts:
-              path: /tmp/artifact-1
-              destination: artifact-fil
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-fil 
   test:
     description: Setup and run application tests
     executor:
@@ -66,5 +65,5 @@ workflows:
       - build:
           requires:
             - test
-            - horusec
+          
 
